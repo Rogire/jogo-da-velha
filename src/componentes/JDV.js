@@ -11,23 +11,23 @@ export default function JDV(props)
         {
             return;
         }
-        if(props.jogador == "Bola")
+        if(props.jogador === "Bola")
         {
          e.classList.toggle('activeBola');
          props.setJogador('X');
         }
-        else if(props.jogador == "X")
+        else if(props.jogador === "X")
         {
             e.classList.toggle('activeX');
             props.setJogador('Bola');
         }
         
-        if(vef()==0)
+        if(vef()===0)
         {
             window.alert('Bola ganhou')
            props.setWBol(props.WB+1);
         }
-        else if(vef()==1)
+        else if(vef()===1)
         {
             window.alert('X ganhou')
             props.setWX(props.WX+1);
