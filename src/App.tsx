@@ -8,6 +8,8 @@ export default function App() {
 
   return (
     <>
+      <a href="https://rogire.github.io/Repositorio/index.html">
+        <img src="/componentes/imgs/atras.jpg" alt="voltar" className="img" style={{width:'50px'}}></img></a>
       <div className="Container">
         <JDV
           jogador={jogador}
