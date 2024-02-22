@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/jogo-da-velha/static/css/main.6ceba418.css",
-    "main.js": "/jogo-da-velha/static/js/main.a43b0bfd.js",
+    "main.js": "/jogo-da-velha/static/js/main.f8464b61.js",
     "static/js/453.486f6019.chunk.js": "/jogo-da-velha/static/js/453.486f6019.chunk.js",
     "static/media/X.jpg": "/jogo-da-velha/static/media/X.abad5a7fb74f14201330.jpg",
     "index.html": "/jogo-da-velha/index.html",
     "main.6ceba418.css.map": "/jogo-da-velha/static/css/main.6ceba418.css.map",
-    "main.a43b0bfd.js.map": "/jogo-da-velha/static/js/main.a43b0bfd.js.map",
+    "main.f8464b61.js.map": "/jogo-da-velha/static/js/main.f8464b61.js.map",
     "453.486f6019.chunk.js.map": "/jogo-da-velha/static/js/453.486f6019.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6ceba418.css",
-    "static/js/main.a43b0bfd.js"
+    "static/js/main.f8464b61.js"
   ]
 }
