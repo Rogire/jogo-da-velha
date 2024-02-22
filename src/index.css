@@ -1,3 +1,7 @@
+*{
+  margin: 5px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,40 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+div.Container{
+  width: 450px;
+  height: 450px;
+  background-color: rgb(5, 7, 104);
+  padding: 50px;
+  border-radius: 15px;
+  margin: auto;
+}
+
+div.Linha{
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+
+div.JDV{
+  height: 150px;
+  width: 150px;
+  background-color: #fff;
+  margin: 0;
+  border: 3px solid black;
+}
+
+div.JDV:hover{
+  cursor: pointer;
+}
+
+div.JDV.activeBola{
+  background-image: url(componentes/imgs/O.jpg);
+  background-size: cover;
+}
+div.JDV.activeX{
+  background-image: url(componentes/imgs/X.jpg);
+  background-size: cover;
 }

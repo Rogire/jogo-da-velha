@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import JDV from "./componentes/JDV";
+import Placar from "./componentes/Placar";
+export default function App() {
+  const [jogador, setJogador] = useState("Bola");
+  const [WB, setWBol] = useState(0);
+  const [WX, setWX] = useState(0);
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="Container">
+        <JDV
+          jogador={jogador}
+          setJogador={setJogador}
+          WB={WB}
+          setWBol={setWBol}
+          WX={WX}
+          setWX={setWX}
+        />
+      </div>
+      <p>
+        <Placar WB={WB} WX={WX} jogador={jogador} setJogador={setJogador} />
+      </p>
+    </>
   );
 }
-
-export default App;
