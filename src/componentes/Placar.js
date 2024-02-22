@@ -11,8 +11,14 @@ export default function Placar(props){
             div.classList.remove('activeBola');
             div.classList.remove('activeX');
         })
+        
+        let divres = document.querySelector("div.vencedor");
+        if(divres)
+          divres.remove();
         props.setJogador('Bola');
-    }
+
+        props.setAcabou(false);
+    } 
 
     return (
       <>

@@ -7,6 +7,9 @@ export default function JDV(props)
     }
 
     const Click=(e)=>{
+    if(props.acabou)
+        return;
+
         if(e.classList.contains("activeBola") || e.classList.contains("activeX"))
         {
             return;
@@ -24,13 +27,25 @@ export default function JDV(props)
         
         if(vef()===0)
         {
-            window.alert('Bola ganhou')
-           props.setWBol(props.WB+1);
+            let JDV = document.querySelector('.Container')
+            let divres = document.createElement("div")
+            divres.classList.add('vencedor')
+            divres.textContent = "Bola ganhou";
+            JDV.appendChild(divres);
+
+            props.setWBol(props.WB+1);
+            props.setAcabou(true);
         }
         else if(vef()===1)
         {
-            window.alert('X ganhou')
+            let JDV = document.querySelector(".Container");
+            let divres = document.createElement("div");
+            divres.classList.add("vencedor");
+            divres.textContent = "X ganhou";
+            JDV.appendChild(divres);
+
             props.setWX(props.WX+1);
+            props.setAcabou(true);
         }
     }
 
@@ -39,31 +54,39 @@ export default function JDV(props)
     
     for (let i = 0; i < divs.length; i+=3) 
     {
-        if(divs[i].classList.contains('activeBola') && divs[i+1].classList.contains('activeBola') && divs[i+2].classList.contains('activeBola'))
+        if(divs[i].classList.contains('activeBola') && divs[i+1].classList.contains('activeBola') 
+        && divs[i+2].classList.contains('activeBola'))
             return 0;   
-        else if(divs[i].classList.contains('activeX') && divs[i+1].classList.contains('activeX') && divs[i+2].classList.contains('activeX'))
+        else if(divs[i].classList.contains('activeX') && divs[i+1].classList.contains('activeX') 
+        && divs[i+2].classList.contains('activeX'))
             return 1;
     }
     //VERIFICAÇÃO DE LINHAS
-    for (let i = 0; i < 2; i++) 
+    for (let i = 0; i < 3; i++) 
     {
-        if(divs[i].classList.contains('activeBola') && divs[i+3].classList.contains('activeBola') && divs[i+6].classList.contains('activeBola'))
+        if(divs[i].classList.contains('activeBola') && divs[i+3].classList.contains('activeBola') 
+        && divs[i+6].classList.contains('activeBola'))
             return 0;
-        else if(divs[i].classList.contains('activeX') && divs[i+3].classList.contains('activeX') && divs[i+6].classList.contains('activeX'))
+        else if(divs[i].classList.contains('activeX') && divs[i+3].classList.contains('activeX') 
+        && divs[i+6].classList.contains('activeX'))
             return 1;
     }
     //VERIFICAÇÃO DE COLUNAS
-    if(divs[0].classList.contains('activeBola') && divs[4].classList.contains('activeBola') && divs[8].classList.contains('activeBola'))
+    if(divs[0].classList.contains('activeBola') && divs[4].classList.contains('activeBola') 
+    && divs[8].classList.contains('activeBola'))
         return 0;  
 
-    if(divs[2].classList.contains('activeBola') && divs[4].classList.contains('activeBola') && divs[6].classList.contains('activeBola'))
+    if(divs[2].classList.contains('activeBola') && divs[4].classList.contains('activeBola') 
+    && divs[6].classList.contains('activeBola'))
         return 0;
 
     //VERIFICAÇÃO DE DIAGONAIS
-     if(divs[0].classList.contains('activeX') && divs[4].classList.contains('activeX') && divs[8].classList.contains('activeX'))
+     if(divs[0].classList.contains('activeX') && divs[4].classList.contains('activeX') 
+     && divs[8].classList.contains('activeX'))
         return 1;  
 
-    if(divs[2].classList.contains('activeX') && divs[4].classList.contains('activeX') && divs[6].classList.contains('activeX'))
+    if(divs[2].classList.contains('activeX') && divs[4].classList.contains('activeX') 
+    && divs[6].classList.contains('activeX'))
         return 1;
     //VERIFICAÇÃO DE DIAGONAIS
     }
