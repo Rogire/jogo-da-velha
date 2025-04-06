@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import JDV from "./componentes/JDV";
 import Placar from "./componentes/Placar";
 import atras from "./componentes/imgs/atras.png"
-export default function App() {
+export default function App()
+{
   const [jogador, setJogador] = useState("Bola");
   const [WB, setWBol] = useState(0);
   const [WX, setWX] = useState(0);
@@ -14,7 +15,7 @@ export default function App() {
         <img src={atras} alt="voltar" className="img" style={{ width: '50px' }}></img>
       </a>
 
-      <div className="Container">
+      <div className="Container" id="Container">
         <JDV
           jogador={jogador}
           setJogador={setJogador}

@@ -68,6 +68,15 @@ div.vencedor{
   font-weight: bolder;
   background-color: green;
 }
+div.empate{
+  width: 440px;
+  display: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+  background-color: rgb(214, 193, 0);
+}
 
 button{
   padding: 5px;

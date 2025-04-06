@@ -2,22 +2,22 @@ import React from "react";
 
 export default function JDV(props)
 {
-    function getDivs(){
-        return document.querySelectorAll('div.JDV')
+    const getDivs = ()=>{
+        return document.querySelectorAll('div.JDV');
     }
 
-    const Click=(e)=>{
-    if(props.acabou)
-        return;
-
-        if(e.classList.contains("activeBola") || e.classList.contains("activeX"))
-        {
+    const Click=(e)=>
+    {
+        if(props.acabou || e.classList.contains("activeBola") || e.classList.contains("activeX"))
             return;
-        }
+
+        let JDV = document.querySelector("#Container");
+        let divres = document.createElement("div");
+        divres.id = "divres";
         if(props.jogador === "Bola")
         {
-         e.classList.toggle('activeBola');
-         props.setJogador('X');
+            e.classList.toggle('activeBola');
+            props.setJogador('X');
         }
         else if(props.jogador === "X")
         {
@@ -25,72 +25,65 @@ export default function JDV(props)
             props.setJogador('Bola');
         }
         
-        if(vef()===0)
+        if(vef() === 0)
+            winner(divres,"Bola ganhou",JDV,0);
+        else if(vef() === 1)
+            winner(divres, "X ganhou", JDV, 1);
+        
+        else if(vef() === -1)
         {
-            let JDV = document.querySelector('.Container')
-            let divres = document.createElement("div")
-            divres.classList.add('vencedor')
-            divres.textContent = "Bola ganhou";
+            divres.classList.add("empate");
+            divres.textContent = "deu velha";
             JDV.appendChild(divres);
-
-            props.setWBol(props.WB+1);
-            props.setAcabou(true);
-        }
-        else if(vef()===1)
-        {
-            let JDV = document.querySelector(".Container");
-            let divres = document.createElement("div");
-            divres.classList.add("vencedor");
-            divres.textContent = "X ganhou";
-            JDV.appendChild(divres);
-
-            props.setWX(props.WX+1);
             props.setAcabou(true);
         }
     }
 
-    const vef= ()=>{ 
-    let divs = getDivs();
-    
-    for (let i = 0; i < divs.length; i+=3) 
-    {
-        if(divs[i].classList.contains('activeBola') && divs[i+1].classList.contains('activeBola') 
-        && divs[i+2].classList.contains('activeBola'))
-            return 0;   
-        else if(divs[i].classList.contains('activeX') && divs[i+1].classList.contains('activeX') 
-        && divs[i+2].classList.contains('activeX'))
-            return 1;
+    const vef = ()=>{
+        const divs = getDivs();
+
+        const combVencedoras = [
+          [0, 1, 2], // Linha 1
+          [3, 4, 5], // Linha 2
+          [6, 7, 8], // Linha 3
+          [0, 3, 6], // Coluna 1
+          [1, 4, 7], // Coluna 2
+          [2, 5, 8], // Coluna 3
+          [0, 4, 8], // Diagonal principal
+          [2, 4, 6], // Diagonal secundária
+        ];
+
+        for(const [a,b,c] of combVencedoras)
+        {
+            if(check([divs[a],divs[b],divs[c]],"activeBola"))
+                return 0;
+
+            if (check([divs[a], divs[b], divs[c]], "activeX")) 
+                return 1;
+        }
+
+        if(Array.from(divs).filter(div =>
+            div.classList.contains('activeBola') || div.classList.contains('activeX')
+        ).length === 9)
+        {
+            return -1; // velha
+        }
     }
-    //VERIFICAÇÃO DE LINHAS
-    for (let i = 0; i < 3; i++) 
-    {
-        if(divs[i].classList.contains('activeBola') && divs[i+3].classList.contains('activeBola') 
-        && divs[i+6].classList.contains('activeBola'))
-            return 0;
-        else if(divs[i].classList.contains('activeX') && divs[i+3].classList.contains('activeX') 
-        && divs[i+6].classList.contains('activeX'))
-            return 1;
+    const check = (item, val)=>{
+        return item[0].classList.contains(val) && item[1].classList.contains(val) &&item[2].classList.contains(val);
     }
-    //VERIFICAÇÃO DE COLUNAS
-    if(divs[0].classList.contains('activeBola') && divs[4].classList.contains('activeBola') 
-    && divs[8].classList.contains('activeBola'))
-        return 0;  
+    const winner = (el,txt,JDV,BoX)=>{
+        el.classList.add("vencedor");
+        el.textContent = txt;
 
-    if(divs[2].classList.contains('activeBola') && divs[4].classList.contains('activeBola') 
-    && divs[6].classList.contains('activeBola'))
-        return 0;
+        JDV.appendChild(el);
+        props.setAcabou(true);
 
-    //VERIFICAÇÃO DE DIAGONAIS
-     if(divs[0].classList.contains('activeX') && divs[4].classList.contains('activeX') 
-     && divs[8].classList.contains('activeX'))
-        return 1;  
-
-    if(divs[2].classList.contains('activeX') && divs[4].classList.contains('activeX') 
-    && divs[6].classList.contains('activeX'))
-        return 1;
-    //VERIFICAÇÃO DE DIAGONAIS
+        if(BoX === 0)
+            props.setWBol(props.WB + 1);
+        else
+            props.setWX(props.WX + 1);
     }
-
     return (
       <>
         <div className="Linha">
