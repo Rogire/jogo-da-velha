@@ -1,7 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 
 export default function JDV(props)
 {
+    const [posicaoB,setPosicaoB] = useState(0);
+    const [posicaoX, setPosicaoX] = useState(0);
+    const [jogadasBola, setJogadasBola] = useState([]);
+    const [jogadasX, setJogadasX] = useState([]);
+    
+    const JDVelha = document.querySelector("#Container");
+
     const getDivs = ()=>{
         return document.querySelectorAll('div.JDV');
     }
@@ -11,31 +18,40 @@ export default function JDV(props)
         if(props.acabou || e.classList.contains("activeBola") || e.classList.contains("activeX"))
             return;
 
-        let JDV = document.querySelector("#Container");
+        const indClick = Array.from(getDivs()).indexOf(e);
         let divres = document.createElement("div");
+
         divres.id = "divres";
+
         if(props.jogador === "Bola")
         {
             e.classList.toggle('activeBola');
             props.setJogador('X');
+            setJogadasBola((jogAnt) => [...jogAnt,indClick]);
         }
         else if(props.jogador === "X")
         {
             e.classList.toggle('activeX');
             props.setJogador('Bola');
+            setJogadasX((jogAnt)=>[...jogAnt, indClick]);        
         }
-        
-        if(vef() === 0)
-            winner(divres,"Bola ganhou",JDV,0);
-        else if(vef() === 1)
-            winner(divres, "X ganhou", JDV, 1);
-        
-        else if(vef() === -1)
+
+        if(props.modo === 1)
+            modoSemVelha();
+        else
         {
-            divres.classList.add("empate");
-            divres.textContent = "deu velha";
-            JDV.appendChild(divres);
-            props.setAcabou(true);
+            if(vef() === 0)
+                winner(divres,"Bola ganhou",0);
+            else if(vef() === 1)
+                winner(divres, "X ganhou", 1);
+            
+            else if(vef() === -1)
+            {
+                divres.classList.add("empate");
+                divres.textContent = "deu velha";
+                JDVelha.appendChild(divres);
+                props.setAcabou(true);
+            }
         }
     }
 
@@ -66,23 +82,47 @@ export default function JDV(props)
             div.classList.contains('activeBola') || div.classList.contains('activeX')
         ).length === 9)
         {
-            return -1; // velha
+            return -1;
         }
     }
+
     const check = (item, val)=>{
         return item[0].classList.contains(val) && item[1].classList.contains(val) &&item[2].classList.contains(val);
     }
-    const winner = (el,txt,JDV,BoX)=>{
+    const winner = (el,txt,BoX)=>{
         el.classList.add("vencedor");
         el.textContent = txt;
 
-        JDV.appendChild(el);
+        JDVelha.appendChild(el);
         props.setAcabou(true);
 
         if(BoX === 0)
             props.setWBol(props.WB + 1);
         else
             props.setWX(props.WX + 1);
+    }
+
+    const modoSemVelha = ()=>{
+
+        const divs = getDivs();
+        let divres = document.createElement("div");
+        divres.id = "divres";
+
+        if (vef() === 0) 
+            winner(divres, "Bola ganhou", 0)
+        else if (vef() === 1) 
+            winner(divres, "X ganhou", 1)
+        else
+        {
+            if(Array.from(divs).filter(div =>div.classList.contains('activeBola') || div.classList.contains('activeX')).length===9)
+            {
+                divs[jogadasBola[posicaoB]].className = "JDV";
+                divs[jogadasX[posicaoX]].className = "JDV";
+                
+                if(posicaoB < jogadasBola.length) setPosicaoB(posicaoB+1);
+                if(posicaoX < jogadasX.length) setPosicaoX(posicaoX+1);
+            }
+        }   
     }
     return (
       <>

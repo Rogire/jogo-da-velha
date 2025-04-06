@@ -31,6 +31,9 @@ div.Container{
   justify-content: center;
   flex-direction: column;
 }
+div.Container.Inf {
+  background-color: rgba(2, 224, 213, 0.856);
+}
 
 div.Linha{
   display: flex;
